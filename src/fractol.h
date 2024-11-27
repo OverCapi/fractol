@@ -23,10 +23,7 @@
 # define WIN_HEIGHT 1080
 # define WIN_TITLE "Fract'ol"
 
-# define MAX_ITERATION 200
 
-# define COLOR1 0x00000000
-# define COLOR2 0xFFFFFFFF
 
 typedef struct s_img
 {
