@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "mlx.h": "c",
-    "fractol.h": "c"
+    "fractol.h": "c",
+    "libft.h": "c"
   }
 }

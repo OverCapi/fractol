@@ -1,6 +1,9 @@
 SRCS_PATH = ./src/
 
-SRCS_FILE = 	$(SRCS_PATH)/fractol.c
+SRCS_FILE = 	$(SRCS_PATH)/fractol.c \
+				$(SRCS_PATH)/fractal/mandelbrot.c \
+				$(SRCS_PATH)/utils/color.c \
+				$(SRCS_PATH)/utils/complex.c
 
 OBJECT_FILE = 	$(SRCS_FILE:.c=.o)
 

@@ -4,6 +4,7 @@ CONVERTER_PATH = ./converter
 STR_PATH = ./str
 WRITE_PATH = ./write
 LINKED_LIST_PATH = ./linked_list
+ERROR_PATH = ./error
 FT_PRINTF = ./ft_printf
 GNL_PATH = ./gnl
 
@@ -58,6 +59,8 @@ SRCS_LINKED_LIST_FUNCTION =		$(LINKED_LIST_PATH)/ft_lstnew_bonus.c \
 								$(LINKED_LIST_PATH)/ft_lstiter_bonus.c \
 								$(LINKED_LIST_PATH)/ft_lstmap_bonus.c
 
+SRCS_ERROR_FUNCTION = 			$(ERROR_PATH)/exit_prog.c
+
 SRCS_FT_PRINTF = 				$(FT_PRINTF)/converter.c \
 								$(FT_PRINTF)/converter_utils.c \
 								$(FT_PRINTF)/ft_printf.c
@@ -70,6 +73,7 @@ SRCS_FILE =						$(SRCS_CHAR_FUNCTION) \
 								$(SRCS_STR_FUNCTION) \
 								$(SRCS_CONVERTER_FUNCTION) \
 								$(SRCS_WRITE_FUNCTION) \
+								$(SRCS_ERROR_FUNCTION) \
 								$(SRCS_FT_PRINTF) \
 								$(SRCS_GNL_FUNCTION)
 
