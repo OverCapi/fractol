@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:18:07 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/28 23:21:02 by capi             ###   ########.fr       */
+/*   Updated: 2024/11/29 15:44:22 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,30 @@ void	put_pixel(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	render(t_setting setting, t_img *img)
+int	get_pixel_color(t_img img, int x, int y)
 {
-	double	y;
-	double	x;
-	int		color;
+	char	*dst;
 
-	y = 0;
-	while (y < WIN_HEIGHT)
+	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
+	return (*(unsigned int*)dst);
+}
+
+// area : [x_min, y_min, x_max, y_max]
+void	render(t_setting setting, t_img *img, double area[4])
+{
+	double		x;
+	double		y;
+	t_complex	c;
+
+	y = area[1];
+	while (y < area[3])
 	{
-		x = 0;
-		while (x < WIN_WIDTH)
+		x = area[0];
+		while (x < area[2])
 		{
-			color = setting.fractal_fct((t_complex){x + setting.offset_x, y + setting.offset_y});
-			put_pixel(img, x, y, color);
+			c.re = x + setting.offset_x;
+			c.im = y + setting.offset_y;
+			put_pixel(img, x, y, setting.fractal_fct(c));
 			x++;
 		}
 		y++;
@@ -48,7 +58,6 @@ t_setting	parse_arg(int argc, char **argv)
 	ft_memset(&setting, 0, sizeof(t_setting));
 	if (ft_strncmp(argv[1], "mandelbrot", ft_strlen(argv[1])) == 0)
 	{
-		setting.fractal_type = 0;
 		setting.color_index = 0;
 		setting.fractal_fct = mandelbrot;
 	}
@@ -57,19 +66,73 @@ t_setting	parse_arg(int argc, char **argv)
 	return (setting);
 }
 
+// area : [x_min, y_min, x_max, y_max]
+t_img	copy_image_offset(t_vars *vars, double offset[2])
+{
+	t_img		new_img;
+	double		x;
+	double		y;
+	double		x_new;
+	double		y_new;
+
+	y = 0;
+	new_img.img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
+	new_img.addr = mlx_get_data_addr(new_img.img, &new_img.bits_per_pixel, \
+	&new_img.line_length, &new_img.endian);
+	while (y < WIN_HEIGHT)
+	{
+		x = 0;
+		while (x < WIN_WIDTH)
+		{
+			x_new = x + offset[0];
+			y_new = y + offset[1];
+			if (x_new >= 0 && x_new < WIN_WIDTH && y_new >= 0 && y_new < WIN_HEIGHT)
+				put_pixel(&new_img, x_new, y_new, get_pixel_color(vars->img, x, y));
+			x++;
+		}
+		y++;
+	}
+	return (new_img);
+}
+
 void	update_screen(t_vars *vars)
 {
-	render((*vars).setting, &vars->img);
+	t_img	new_img;
+	int		offset_x;
+	int		offset_y;
+
+	offset_x = vars->last_setting.offset_x - vars->setting.offset_x;
+	offset_y = vars->last_setting.offset_y - vars->setting.offset_y;
+	new_img = copy_image_offset(vars, (double[2]){offset_x, offset_y});
+	mlx_destroy_image(vars->mlx, vars->img.img);
+	vars->img = new_img;
+	if (offset_x < 0)
+		render(vars->setting, &vars->img, (double[4]){WIN_WIDTH + offset_x, 0, WIN_WIDTH, WIN_HEIGHT});
+	else if (offset_x > 0)
+		render(vars->setting, &vars->img, (double[4]){0, 0, offset_x, WIN_HEIGHT});
+	if (offset_y < 0)
+		render(vars->setting, &vars->img, (double[4]){0, WIN_HEIGHT + offset_y, WIN_WIDTH, WIN_HEIGHT});
+	else if (offset_y > 0)
+		render(vars->setting, &vars->img, (double[4]){0, 0, WIN_WIDTH, offset_y});
+	mlx_clear_window(vars->mlx, vars->win);
 	mlx_put_image_to_window(vars->mlx, vars->win, (*vars).img.img, 0, 0);
+}
+ 
+void	exit_fractal(t_vars *vars)
+{
+	mlx_destroy_image(vars->mlx, vars->img.img);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
 }
 
 int	key_hook(int keycode, t_vars *vars)
 {
-	int	key_handled;
+	int	update;
 
-	key_handled = 1;
+	update = 1;
+	vars->last_setting = vars->setting;
 	if (keycode == ESCAPE_KEY)
-		exit(0);
+		exit_fractal(vars);
 	else if (keycode == RIGHT_KEY)
 		vars->setting.offset_x += OFFSET_STEP;
 	else if (keycode == LEFT_KEY)
@@ -79,8 +142,8 @@ int	key_hook(int keycode, t_vars *vars)
 	else if (keycode == DOWN_KEY)
 		vars->setting.offset_y += OFFSET_STEP;
 	else
-		key_handled = 0;
-	if (key_handled)
+		update = 0;
+	if (update)
 		update_screen(vars);
 	return (0);
 }
@@ -97,8 +160,9 @@ int	main(int argc, char **argv)
 	vars.win = mlx_new_window(vars.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	vars.img.img = mlx_new_image(vars.mlx, WIN_WIDTH, WIN_HEIGHT);
-	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, &vars.img.line_length, &vars.img.endian);
-	render(vars.setting, &vars.img);
+	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, \
+	&vars.img.line_length, &vars.img.endian);
+	render(vars.setting, &vars.img, (double[4]){0, 0, WIN_WIDTH, WIN_HEIGHT});
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
 	mlx_loop(vars.mlx);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/28 23:16:20 by capi             ###   ########.fr       */
+/*   Updated: 2024/11/29 15:12:03 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,10 @@ typedef struct s_complex
 
 typedef struct s_setting
 {
-	int		fractal_type;
 	int		color_index;
 	int		(*fractal_fct)(t_complex);
-	int		offset_x;
-	int		offset_y;
+	double	offset_x;
+	double	offset_y;
 	double	zoom;
 	double	zoom_factor;
 }	t_setting;
@@ -62,10 +61,12 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct	s_vars {
+typedef struct s_vars
+{
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	t_setting	last_setting;
 	t_setting	setting;
 }	t_vars;
 
