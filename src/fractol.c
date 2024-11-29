@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:18:07 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/29 15:44:22 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/29 16:15:39 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	render(t_setting setting, t_img *img, double area[4])
 		{
 			c.re = x + setting.offset_x;
 			c.im = y + setting.offset_y;
-			put_pixel(img, x, y, setting.fractal_fct(c));
+			put_pixel(img, x, y, setting.fractal_fct(c, setting.zoom));
 			x++;
 		}
 		y++;
@@ -56,6 +56,8 @@ t_setting	parse_arg(int argc, char **argv)
 
 	(void)argc;
 	ft_memset(&setting, 0, sizeof(t_setting));
+	setting.zoom = 500;
+	setting.zoom_factor = 1.5;
 	if (ft_strncmp(argv[1], "mandelbrot", ft_strlen(argv[1])) == 0)
 	{
 		setting.color_index = 0;
@@ -95,7 +97,7 @@ t_img	copy_image_offset(t_vars *vars, double offset[2])
 	return (new_img);
 }
 
-void	update_screen(t_vars *vars)
+void	update_screen_movement(t_vars *vars)
 {
 	t_img	new_img;
 	int		offset_x;
@@ -117,7 +119,18 @@ void	update_screen(t_vars *vars)
 	mlx_clear_window(vars->mlx, vars->win);
 	mlx_put_image_to_window(vars->mlx, vars->win, (*vars).img.img, 0, 0);
 }
- 
+
+void	update_screen_zoom(t_vars *vars)
+{
+	mlx_destroy_image(vars->mlx, vars->img.img);
+	vars->img.img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);
+	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bits_per_pixel, \
+	&vars->img.line_length, &vars->img.endian);
+	render(vars->setting, &vars->img, (double[4]){0, 0, WIN_WIDTH, WIN_HEIGHT});
+	mlx_clear_window(vars->mlx, vars->win);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+}
+
 void	exit_fractal(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img.img);
@@ -144,7 +157,33 @@ int	key_hook(int keycode, t_vars *vars)
 	else
 		update = 0;
 	if (update)
-		update_screen(vars);
+		update_screen_movement(vars);
+	return (0);
+}
+
+int	mouse_hook(int button, int x, int y, t_vars *vars)
+{
+	int	update;
+
+	update = 1;
+	if (button == SCROLL_UP)
+		vars->setting.zoom *= vars->setting.zoom_factor;
+	else if (button == SCROLL_DOWN)
+		vars->setting.zoom /= vars->setting.zoom_factor;
+	else
+		update = 0;
+	if (update)
+	{
+		if (x < WIN_WIDTH / 2)
+			vars->setting.offset_x -= (WIN_WIDTH / 2 - x) * vars->setting.zoom_factor;
+		else
+			vars->setting.offset_x += (x - WIN_WIDTH / 2) * vars->setting.zoom_factor;
+		if (y < WIN_HEIGHT / 2)
+			vars->setting.offset_y -= (WIN_HEIGHT / 2 - y) * vars->setting.zoom_factor;
+		else
+			vars->setting.offset_y += (y - WIN_HEIGHT / 2) * vars->setting.zoom_factor;
+		update_screen_zoom(vars);
+	}
 	return (0);
 }
 
@@ -159,6 +198,7 @@ int	main(int argc, char **argv)
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_TITLE);
 	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_mouse_hook(vars.win, mouse_hook, &vars);
 	vars.img.img = mlx_new_image(vars.mlx, WIN_WIDTH, WIN_HEIGHT);
 	vars.img.addr = mlx_get_data_addr(vars.img.img, &vars.img.bits_per_pixel, \
 	&vars.img.line_length, &vars.img.endian);

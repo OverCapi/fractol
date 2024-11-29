@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/29 15:12:03 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/29 16:10:58 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ option : mandelbrot : no option\n"
 # define UP_KEY 65362
 # define DOWN_KEY 65364
 
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
+
 typedef struct s_complex
 {
 	double	re;
@@ -45,7 +48,7 @@ typedef struct s_complex
 typedef struct s_setting
 {
 	int		color_index;
-	int		(*fractal_fct)(t_complex);
+	int		(*fractal_fct)(t_complex, double);
 	double	offset_x;
 	double	offset_y;
 	double	zoom;
@@ -78,6 +81,6 @@ t_complex	add_complex(t_complex z1, t_complex z2);
 int			blend_color(int color1, int color2, double ratio);
 
 /* MANDELBROT */
-int			mandelbrot(t_complex c);
+int			mandelbrot(t_complex c, double zoom);
 
 #endif
