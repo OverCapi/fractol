@@ -6,13 +6,13 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:18:07 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/29 16:16:52 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/29 18:29:17 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-# define MAX_ITERATION_MANDELBROT 100
+# define MAX_ITERATION_MANDELBROT 50
 
 static t_complex	get_cartesian_coord(t_complex c, double zoom)
 {
@@ -41,5 +41,5 @@ int	mandelbrot(t_complex c, double zoom)
 			break ;
 		n++;
 	}
-	return (blend_color(0x00000000, 0xFFFFFFFF, n / MAX_ITERATION_MANDELBROT));
+	return (blend_color(0xFFFFFFFF, 0x00000000, n / MAX_ITERATION_MANDELBROT));
 }

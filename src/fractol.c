@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:18:07 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/29 16:15:39 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/29 18:34:44 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,12 @@ void	update_screen_zoom(t_vars *vars)
 
 void	exit_fractal(t_vars *vars)
 {
-	mlx_destroy_image(vars->mlx, vars->img.img);
-	mlx_destroy_window(vars->mlx, vars->win);
+	if (vars->img.img)
+		mlx_destroy_image(vars->mlx, vars->img.img);
+	if (vars->win)
+		mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
 	exit(0);
 }
 
@@ -167,23 +171,21 @@ int	mouse_hook(int button, int x, int y, t_vars *vars)
 
 	update = 1;
 	if (button == SCROLL_UP)
+	{
 		vars->setting.zoom *= vars->setting.zoom_factor;
+		vars->setting.offset_x = (vars->setting.offset_x + x - WIN_WIDTH / 2) * vars->setting.zoom_factor - x + WIN_WIDTH / 2;
+		vars->setting.offset_y = (vars->setting.offset_y + y - WIN_HEIGHT / 2) * vars->setting.zoom_factor - y + WIN_HEIGHT / 2;
+	}
 	else if (button == SCROLL_DOWN)
+	{
 		vars->setting.zoom /= vars->setting.zoom_factor;
+		vars->setting.offset_x = (vars->setting.offset_x + x - WIN_WIDTH / 2) / vars->setting.zoom_factor - x + WIN_WIDTH / 2;
+		vars->setting.offset_y = (vars->setting.offset_y + y - WIN_HEIGHT / 2) / vars->setting.zoom_factor - y + WIN_HEIGHT / 2;
+	}
 	else
 		update = 0;
 	if (update)
-	{
-		if (x < WIN_WIDTH / 2)
-			vars->setting.offset_x -= (WIN_WIDTH / 2 - x) * vars->setting.zoom_factor;
-		else
-			vars->setting.offset_x += (x - WIN_WIDTH / 2) * vars->setting.zoom_factor;
-		if (y < WIN_HEIGHT / 2)
-			vars->setting.offset_y -= (WIN_HEIGHT / 2 - y) * vars->setting.zoom_factor;
-		else
-			vars->setting.offset_y += (y - WIN_HEIGHT / 2) * vars->setting.zoom_factor;
 		update_screen_zoom(vars);
-	}
 	return (0);
 }
 
