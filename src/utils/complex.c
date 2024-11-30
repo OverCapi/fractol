@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   complex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: capi <capi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 22:27:15 by capi              #+#    #+#             */
-/*   Updated: 2024/11/28 22:27:42 by capi             ###   ########.fr       */
+/*   Updated: 2024/11/30 15:35:41 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
+
+t_complex	get_cartesian_coord(t_complex c, double zoom)
+{
+	t_complex	result;
+
+	result.re = ((c.re - (WIN_WIDTH / 2)) / zoom);
+	if (c.im < WIN_HEIGHT / 2)
+		result.im = (WIN_HEIGHT / 2 - c.im) / zoom;
+	else
+		result.im = (c.im - WIN_HEIGHT / 2) / zoom;
+	return (result);
+}
 
 // z   = a + bi
 // z^2 = a^2 - b^2 + 2abi

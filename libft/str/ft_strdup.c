@@ -15,8 +15,10 @@
 char	*ft_strdup(const char *s)
 {
 	size_t	len_s;
+	size_t	i;
 	char	*dest;
 
+	i = 0;
 	len_s = ft_strlen(s);
 	dest = (char *)malloc((len_s + 1) * sizeof(char));
 	if (dest == NULL)

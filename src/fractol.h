@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/29 16:10:58 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/30 15:36:41 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@
 # define WIN_HEIGHT 1080
 # define WIN_TITLE "Fract'ol"
 
+# define ERROR_MLX "Error\nmlx initialization failed\n"
 # define ERROR_ARG "Error\n\
 usage : ./fractol <fractal> <option>\n\
 fractal : mandelbrot\n\
 option : mandelbrot : no option\n"
+
+# define MAX_ITERATION 100
 
 # define OFFSET_STEP 100
 
@@ -47,7 +50,6 @@ typedef struct s_complex
 
 typedef struct s_setting
 {
-	int		color_index;
 	int		(*fractal_fct)(t_complex, double);
 	double	offset_x;
 	double	offset_y;
@@ -59,8 +61,8 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bpp; // bits per pixel
+	int		size_line;
 	int		endian;
 }	t_img;
 
@@ -73,14 +75,34 @@ typedef struct s_vars
 	t_setting	setting;
 }	t_vars;
 
-/* COMPLEX */
+/* UTILS */
+	/* COMPLEX */
+t_complex	get_cartesian_coord(t_complex c, double zoom);
 t_complex	square_complex(t_complex z);
 t_complex	add_complex(t_complex z1, t_complex z2);
 
-/* COLOR */
-int			blend_color(int color1, int color2, double ratio);
+	/* COLOR */
+int			blend_color(int weight[3], double ratio);
 
-/* MANDELBROT */
+	/* IMAGE */
+t_img		copy_image_offset(t_vars *vars, double offset[2]);
+void		create_image(t_vars *vars);
+
+/* FRACTAL -> fractal_type*/
 int			mandelbrot(t_complex c, double zoom);
+int			julia(t_complex c, double zoom);
+
+/* MLX */
+void		put_pixel(t_img *img, int x, int y, int color);
+void		init(t_vars *vars);
+
+/* UPDATE */
+void		update_screen_movement(t_vars *vars);
+void		update_screen_zoom(t_vars *vars);
+void		render(t_setting setting, t_img *img, double area[4]);
+
+/* EVENT */
+int			key_hook(int keycode, t_vars *vars);
+int			mouse_hook(int button, int x, int y, t_vars *vars);
 
 #endif

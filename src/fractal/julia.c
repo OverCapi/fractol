@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 15:18:07 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/30 15:35:27 by llemmel          ###   ########.fr       */
+/*   Created: 2024/11/30 15:34:07 by llemmel           #+#    #+#             */
+/*   Updated: 2024/11/30 15:48:54 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-int	mandelbrot(t_complex c, double zoom)
+int	julia(t_complex c, double zoom)
 {
 	double		n;
 	t_complex	zn;
@@ -27,5 +27,5 @@ int	mandelbrot(t_complex c, double zoom)
 			break ;
 		n++;
 	}
-	return (blend_color((int [3]){9, 15, 8}, n / MAX_ITERATION));
+	return (blend_color((int [3]){8, 9, 15}, n / MAX_ITERATION));
 }

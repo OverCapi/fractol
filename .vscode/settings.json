@@ -59,6 +59,7 @@
   "files.associations": {
     "mlx.h": "c",
     "fractol.h": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "mlx_int.h": "c"
   }
 }
