@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 22:27:15 by capi              #+#    #+#             */
-/*   Updated: 2024/11/30 15:35:41 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/11/30 16:59:49 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_complex	get_cartesian_coord(t_complex c, double zoom)
 
 	result.re = ((c.re - (WIN_WIDTH / 2)) / zoom);
 	if (c.im < WIN_HEIGHT / 2)
-		result.im = (WIN_HEIGHT / 2 - c.im) / zoom;
+		result.im = ((c.im + (WIN_HEIGHT / 2)) / zoom);
 	else
-		result.im = (c.im - WIN_HEIGHT / 2) / zoom;
+		result.im = ((c.im - (WIN_HEIGHT / 2)) / zoom);
 	return (result);
 }
 
