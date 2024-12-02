@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:05:34 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/30 14:48:28 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/02 12:13:38 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
+	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
+		return ;
 	dst = img->addr + (y * img->size_line + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
 }

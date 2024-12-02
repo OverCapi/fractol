@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:18:07 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/30 15:33:59 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/02 12:16:36 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 	else
 		vars.setting = parse_arg(argc, argv);
 	init(&vars);
-	render(vars.setting, &vars.img, (double [4]){0, 0, WIN_WIDTH, WIN_HEIGHT});
+	render(vars.setting, &vars.img, (double [4]){0, WIN_WIDTH, 0, WIN_HEIGHT});
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
 	mlx_loop(vars.mlx);
 	return (0);
