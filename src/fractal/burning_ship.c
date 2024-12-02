@@ -1,45 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex.c                                          :+:      :+:    :+:   */
+/*   burning_ship.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 22:27:15 by capi              #+#    #+#             */
-/*   Updated: 2024/12/02 16:40:09 by llemmel          ###   ########.fr       */
+/*   Created: 2024/12/02 15:46:41 by llemmel           #+#    #+#             */
+/*   Updated: 2024/12/02 16:40:22 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-t_complex	get_cartesian_coord(t_complex c, double zoom)
+static t_complex get_coord_burn(t_complex c, double zoom)
 {
 	t_complex	result;
 
 	result.re = ((c.re - (WIN_WIDTH / 2)) / zoom);
 	if (c.im < WIN_HEIGHT / 2)
-		result.im = ((-c.im + (WIN_HEIGHT / 2)) / zoom);
+		result.im = -((-c.im + (WIN_HEIGHT / 2)) / zoom);
 	else
-		result.im = -((c.im - (WIN_HEIGHT / 2)) / zoom);
+		result.im = ((c.im - (WIN_HEIGHT / 2)) / zoom);
 	return (result);
 }
 
-// z   = a + bi
-// z^2 = a^2 - b^2 + 2abi
-t_complex	square_complex(t_complex z)
+int	burning_ship(t_complex c, t_vars *vars)
 {
-	t_complex	z_2;
+	double		n;
+	t_complex	zn;
 
-	z_2.re = (z.re * z.re) - (z.im * z.im);
-	z_2.im = 2 * z.re * z.im;
-	return (z_2);
-}
-
-t_complex	add_complex(t_complex z1, t_complex z2)
-{
-	t_complex	result;
-
-	result.re = z1.re + z2.re;
-	result.im = z1.im + z2.im;
-	return (result);
+	n = 0;
+	c = get_coord_burn(c, vars->setting.zoom);
+	zn = (t_complex){0, 0};
+	while (n < MAX_ITERATION)
+	{
+		zn = square_complex((t_complex){fabs(zn.re), fabs(zn.im)});
+		zn = add_complex(zn, c);
+		if (zn.re * zn.re + zn.im * zn.im > 4)
+			break ;
+		n++;
+	}
+	return (blend_color((int [3]){9, 15, 8}, n / MAX_ITERATION));
 }

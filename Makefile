@@ -5,14 +5,17 @@ SRCS_UTILS_PATH = $(SRCS_PATH)/utils
 SRCS_UTILS = 	$(SRCS_UTILS_PATH)/color.c \
 				$(SRCS_UTILS_PATH)/complex.c \
 				$(SRCS_UTILS_PATH)/image.c \
+				$(SRCS_UTILS_PATH)/ft_atod.c
 
 SRCS_FRACTAL = 	$(SRCS_FRACTAL_PATH)/mandelbrot.c \
-				$(SRCS_FRACTAL_PATH)/julia.c
+				$(SRCS_FRACTAL_PATH)/julia.c \
+				$(SRCS_FRACTAL_PATH)/burning_ship.c \
 
 SRCS_FRACTOL = 	$(SRCS_PATH)/fractol.c \
 				$(SRCS_PATH)/event.c \
 				$(SRCS_PATH)/mlx.c \
-				$(SRCS_PATH)/update.c
+				$(SRCS_PATH)/update.c \
+				$(SRCS_PATH)/parsing.c
 
 SRCS_FILE =		$(SRCS_FRACTOL) \
 				$(SRCS_FRACTAL) \

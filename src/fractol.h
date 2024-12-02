@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/11/30 15:36:41 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/02 17:29:18 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 # define WIN_HEIGHT 1080
 # define WIN_TITLE "Fract'ol"
 
-# define ERROR_MLX "Error\nmlx initialization failed\n"
-# define ERROR_ARG "Error\n\
-usage : ./fractol <fractal> <option>\n\
-fractal : mandelbrot\n\
-option : mandelbrot : no option\n"
+# define ERROR_MLX "mlx initialization failed\n"
+# define ERROR_ARG "usage : ./fractol <fractal> <option>\n\
+fractal : mandelbrot, julia, burning_ship\n\
+option : mandelbrot : no option\n\
+     	 julia : <real part> <imaginary part>\n\
+ 	 burning_ship : no option\n"
 
 # define MAX_ITERATION 100
 
@@ -48,20 +49,23 @@ typedef struct s_complex
 	double	im;
 }	t_complex;
 
+typedef struct s_vars	t_vars;
+
 typedef struct s_setting
 {
-	int		(*fractal_fct)(t_complex, double);
-	double	offset_x;
-	double	offset_y;
-	double	zoom;
-	double	zoom_factor;
+	int			(*fractal_fct)(t_complex, t_vars*);
+	t_complex	c_julia;
+	double		offset_x;
+	double		offset_y;
+	double		zoom;
+	double		zoom_factor;
 }	t_setting;
 
 typedef struct s_img
 {
 	void	*img;
 	char	*addr;
-	int		bpp; // bits per pixel
+	int		bpp;
 	int		size_line;
 	int		endian;
 }	t_img;
@@ -88,9 +92,15 @@ int			blend_color(int weight[3], double ratio);
 t_img		copy_image_offset(t_vars *vars, double offset[2]);
 void		create_image(t_vars *vars);
 
+double		ft_atod(char *str);
+
 /* FRACTAL -> fractal_type*/
-int			mandelbrot(t_complex c, double zoom);
-int			julia(t_complex c, double zoom);
+int			mandelbrot(t_complex c, t_vars *vars);
+int			julia(t_complex c, t_vars *vars);
+int			burning_ship(t_complex c, t_vars *vars);
+
+/* PARSING */
+t_setting	parse_arg(int argc, char **argv);
 
 /* MLX */
 void		put_pixel(t_img *img, int x, int y, int color);
@@ -99,7 +109,7 @@ void		init(t_vars *vars);
 /* UPDATE */
 void		update_screen_movement(t_vars *vars);
 void		update_screen_zoom(t_vars *vars);
-void		render(t_setting setting, t_img *img, double area[4]);
+void		render(t_vars *vars, double area[4]);
 
 /* EVENT */
 int			key_hook(int keycode, t_vars *vars);
