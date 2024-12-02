@@ -6,13 +6,13 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:46:41 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/02 16:40:22 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/02 17:44:08 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-static t_complex get_coord_burn(t_complex c, double zoom)
+static t_complex	get_coord_burn(t_complex c, double zoom)
 {
 	t_complex	result;
 

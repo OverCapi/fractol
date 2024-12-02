@@ -6,13 +6,13 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 16:56:00 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/02 17:14:50 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/02 17:44:31 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
- static double	get_integer_part(char *str, size_t *index)
+static double	get_integer_part(char *str, size_t *index)
 {
 	double	result;
 
