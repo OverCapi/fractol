@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/03 13:42:34 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/03 14:39:23 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ option : mandelbrot : no option\n\
  	 burning_ship : no option\n"
 
 # define OFFSET_STEP 100
+# define JULIA_STEP 0.001
 
 # define ON_DESTROY 17
 
@@ -47,6 +48,10 @@ option : mandelbrot : no option\n\
 # define THREE_KEY_NUMPAD 65435
 # define PLUS_KEY 65451
 # define MINUS_KEY 65453
+# define LALT_KEY 65513
+# define RALT_KEY 65514
+# define X_KEY 120
+# define Y_KEY 121
 
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
@@ -68,6 +73,7 @@ typedef struct s_setting
 	double		offset_y;
 	double		zoom;
 	double		zoom_factor;
+	int			key_pressed[3];
 }	t_setting;
 
 typedef struct s_img
@@ -118,11 +124,14 @@ void		put_pixel(t_img *img, int x, int y, int color);
 void		init(t_vars *vars);
 
 /* UPDATE */
+void		update_key_history(int keycode, t_vars *vars);
+int			update_julia_set(t_setting *setting);
 void		update_screen_movement(t_vars *vars);
 void		update_screen(t_vars *vars);
 void		render(t_vars *vars, double area[4]);
 
 /* EVENT */
+int			modif_julia_set(int keycode, int mode, t_setting *setting);
 int			key_hook(int keycode, t_vars *vars);
 int			mouse_hook(int button, int x, int y, t_vars *vars);
 

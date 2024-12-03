@@ -6,11 +6,33 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:01:46 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/03 13:28:56 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/03 14:37:34 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	update_key_history(int keycode, t_vars *vars)
+{
+	vars->setting.key_pressed[2] = vars->setting.key_pressed[1];
+	vars->setting.key_pressed[1] = vars->setting.key_pressed[0];
+	vars->setting.key_pressed[0] = keycode;
+}
+
+int	update_julia_set(t_setting *setting)
+{
+	int	*key_pressed;
+
+	key_pressed = setting->key_pressed;
+	if (key_pressed[2] == LALT_KEY || key_pressed[2] == RALT_KEY)
+	{
+		if (key_pressed[1] == X_KEY)
+			return (modif_julia_set(key_pressed[0], 0, setting));
+		else if (key_pressed[1] == Y_KEY)
+			return (modif_julia_set(key_pressed[0], 1, setting));
+	}
+	return (0);
+}
 
 void	update_screen_movement(t_vars *vars)
 {

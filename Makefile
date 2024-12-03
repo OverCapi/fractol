@@ -1,12 +1,15 @@
 SRCS_PATH = ./src
 SRCS_FRACTAL_PATH = $(SRCS_PATH)/fractal
 SRCS_UTILS_PATH = $(SRCS_PATH)/utils
+SRCS_EVENT_PATH = $(SRCS_PATH)/event
 
 SRCS_UTILS = 	$(SRCS_UTILS_PATH)/color.c \
 				$(SRCS_UTILS_PATH)/complex.c \
 				$(SRCS_UTILS_PATH)/image.c \
 				$(SRCS_UTILS_PATH)/ft_atod.c \
 				$(SRCS_UTILS_PATH)/exit_fractal.c
+
+SRCS_EVENT = 	$(SRCS_EVENT_PATH)/key_event.c
 
 SRCS_FRACTAL = 	$(SRCS_FRACTAL_PATH)/mandelbrot.c \
 				$(SRCS_FRACTAL_PATH)/julia.c \
@@ -20,7 +23,8 @@ SRCS_FRACTOL = 	$(SRCS_PATH)/fractol.c \
 
 SRCS_FILE =		$(SRCS_FRACTOL) \
 				$(SRCS_FRACTAL) \
-				$(SRCS_UTILS)
+				$(SRCS_UTILS) \
+				$(SRCS_EVENT)
 
 OBJECT_FILE = 	$(SRCS_FILE:.c=.o)
 

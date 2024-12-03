@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:05:34 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/03 13:11:46 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/03 14:47:46 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	put_pixel(t_img *img, int x, int y, int color)
 
 void	init(t_vars *vars)
 {
-	ft_printf("MLX initialization...\n");
+	ft_printf("[LOG] MLX initialization...\n");
 	vars->mlx = mlx_init();
 	if (!vars->mlx)
 		exit_error(ERROR_MLX, 1);
@@ -38,5 +38,5 @@ void	init(t_vars *vars)
 	mlx_mouse_hook(vars->win, mouse_hook, vars);
 	mlx_hook(vars->win, ON_DESTROY, 0, &exit_fractal, vars);
 	create_image(vars);
-	ft_printf("MLX initialization completed\n");
+	ft_printf("[LOG] MLX initialization completed\n");
 }
