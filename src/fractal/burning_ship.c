@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:46:41 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/02 17:44:08 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:15:27 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	burning_ship(t_complex c, t_vars *vars)
 	n = 0;
 	c = get_coord_burn(c, vars->setting.zoom);
 	zn = (t_complex){0, 0};
-	while (n < MAX_ITERATION)
+	while (n < vars->setting.accuracy)
 	{
 		zn = square_complex((t_complex){fabs(zn.re), fabs(zn.im)});
 		zn = add_complex(zn, c);
@@ -40,5 +40,5 @@ int	burning_ship(t_complex c, t_vars *vars)
 			break ;
 		n++;
 	}
-	return (blend_color((int [3]){9, 15, 8}, n / MAX_ITERATION));
+	return (blend_color((int [3]){9, 15, 8}, n / vars->setting.accuracy));
 }

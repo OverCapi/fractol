@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:01:46 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/02 16:07:54 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:28:56 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	update_screen_movement(t_vars *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, (*vars).img.img, 0, 0);
 }
 
-void	update_screen_zoom(t_vars *vars)
+void	update_screen(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx, vars->img.img);
 	vars->img.img = mlx_new_image(vars->mlx, WIN_WIDTH, WIN_HEIGHT);

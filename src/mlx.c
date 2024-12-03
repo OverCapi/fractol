@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:05:34 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/02 12:13:38 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:11:46 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init(t_vars *vars)
 	}
 	mlx_key_hook(vars->win, key_hook, vars);
 	mlx_mouse_hook(vars->win, mouse_hook, vars);
+	mlx_hook(vars->win, ON_DESTROY, 0, &exit_fractal, vars);
 	create_image(vars);
 	ft_printf("MLX initialization completed\n");
 }

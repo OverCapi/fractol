@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/02 17:29:18 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/03 13:42:34 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,23 @@ option : mandelbrot : no option\n\
      	 julia : <real part> <imaginary part>\n\
  	 burning_ship : no option\n"
 
-# define MAX_ITERATION 100
-
 # define OFFSET_STEP 100
+
+# define ON_DESTROY 17
 
 # define ESCAPE_KEY 65307
 # define RIGHT_KEY 65363
 # define LEFT_KEY 65361
 # define UP_KEY 65362
 # define DOWN_KEY 65364
+# define ONE_KEY 49
+# define TWO_KEY 50
+# define THREE_KEY 51
+# define ONE_KEY_NUMPAD 65436
+# define TWO_KEY_NUMPAD 65433
+# define THREE_KEY_NUMPAD 65435
+# define PLUS_KEY 65451
+# define MINUS_KEY 65453
 
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
@@ -55,6 +63,7 @@ typedef struct s_setting
 {
 	int			(*fractal_fct)(t_complex, t_vars*);
 	t_complex	c_julia;
+	double		accuracy;
 	double		offset_x;
 	double		offset_y;
 	double		zoom;
@@ -93,6 +102,7 @@ t_img		copy_image_offset(t_vars *vars, double offset[2]);
 void		create_image(t_vars *vars);
 
 double		ft_atod(char *str);
+int			exit_fractal(t_vars *vars);
 
 /* FRACTAL -> fractal_type*/
 int			mandelbrot(t_complex c, t_vars *vars);
@@ -100,6 +110,7 @@ int			julia(t_complex c, t_vars *vars);
 int			burning_ship(t_complex c, t_vars *vars);
 
 /* PARSING */
+void		init_setting(t_setting *setting);
 t_setting	parse_arg(int argc, char **argv);
 
 /* MLX */
@@ -108,7 +119,7 @@ void		init(t_vars *vars);
 
 /* UPDATE */
 void		update_screen_movement(t_vars *vars);
-void		update_screen_zoom(t_vars *vars);
+void		update_screen(t_vars *vars);
 void		render(t_vars *vars, double area[4]);
 
 /* EVENT */

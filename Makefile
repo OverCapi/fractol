@@ -5,7 +5,8 @@ SRCS_UTILS_PATH = $(SRCS_PATH)/utils
 SRCS_UTILS = 	$(SRCS_UTILS_PATH)/color.c \
 				$(SRCS_UTILS_PATH)/complex.c \
 				$(SRCS_UTILS_PATH)/image.c \
-				$(SRCS_UTILS_PATH)/ft_atod.c
+				$(SRCS_UTILS_PATH)/ft_atod.c \
+				$(SRCS_UTILS_PATH)/exit_fractal.c
 
 SRCS_FRACTAL = 	$(SRCS_FRACTAL_PATH)/mandelbrot.c \
 				$(SRCS_FRACTAL_PATH)/julia.c \
