@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 13:55:29 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/03 14:59:16 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/03 15:10:55 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	mouse_hook(int button, int x, int y, t_vars *vars)
 		need_update = 0;
 	if (need_update)
 	{
-		printf("[LOG] zoom updated %f, %f\n", vars->setting.zoom, vars->setting.offset_x);
+		printf("[LOG] zoom updated\n");
 		update_screen(vars);
 	}
 	return (0);
