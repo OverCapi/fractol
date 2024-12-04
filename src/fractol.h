@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/03 14:39:23 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/04 09:58:13 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <mlx.h>
 # include <math.h>
-# include <stdio.h>
+//# include <stdio.h>
 
 # include "../libft/libft.h"
 
@@ -52,6 +52,7 @@ option : mandelbrot : no option\n\
 # define RALT_KEY 65514
 # define X_KEY 120
 # define Y_KEY 121
+# define R_KEY 114
 
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
@@ -94,43 +95,38 @@ typedef struct s_vars
 	t_setting	setting;
 }	t_vars;
 
-/* UTILS */
-	/* COMPLEX */
+/* COMPLEX */
 t_complex	get_cartesian_coord(t_complex c, double zoom);
 t_complex	square_complex(t_complex z);
 t_complex	add_complex(t_complex z1, t_complex z2);
 
-	/* COLOR */
 int			blend_color(int weight[3], double ratio);
 
-	/* IMAGE */
 t_img		copy_image_offset(t_vars *vars, double offset[2]);
 void		create_image(t_vars *vars);
 
 double		ft_atod(char *str);
 int			exit_fractal(t_vars *vars);
 
-/* FRACTAL -> fractal_type*/
+void		set_mandelbrot(t_setting *setting, int init);
+void		set_julia(t_setting *setting, int init);
+void		set_burning_ship(t_setting *setting, int init);
 int			mandelbrot(t_complex c, t_vars *vars);
 int			julia(t_complex c, t_vars *vars);
 int			burning_ship(t_complex c, t_vars *vars);
 
-/* PARSING */
 void		init_setting(t_setting *setting);
 t_setting	parse_arg(int argc, char **argv);
 
-/* MLX */
 void		put_pixel(t_img *img, int x, int y, int color);
 void		init(t_vars *vars);
 
-/* UPDATE */
 void		update_key_history(int keycode, t_vars *vars);
 int			update_julia_set(t_setting *setting);
 void		update_screen_movement(t_vars *vars);
 void		update_screen(t_vars *vars);
 void		render(t_vars *vars, double area[4]);
 
-/* EVENT */
 int			modif_julia_set(int keycode, int mode, t_setting *setting);
 int			key_hook(int keycode, t_vars *vars);
 int			mouse_hook(int button, int x, int y, t_vars *vars);

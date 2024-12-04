@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:15:57 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/03 15:04:54 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/04 09:44:31 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,17 @@ t_setting	parse_arg(int argc, char **argv)
 {
 	t_setting	setting;
 
-	init_setting(&setting);
+	setting = (t_setting){0};
 	if (ft_strncmp(argv[1], "mandelbrot", ft_strlen(argv[1])) == 0)
-		setting.fractal_fct = mandelbrot;
+		set_mandelbrot(&setting, 1);
 	else if (ft_strncmp(argv[1], "julia", ft_strlen(argv[1])) == 0)
 	{
-		setting.fractal_fct = julia;
-		if (argc < 4)
-		{
-			setting.c_julia = (t_complex){0.285, 0.01};
-			ft_printf("Invalid configuration of Julia Set, using default\n");
-		}
-		else
+		set_julia(&setting, 1);
+		if (argc > 4)
 			setting.c_julia = (t_complex){ft_atod(argv[2]), ft_atod(argv[3])};
 	}
 	else if (ft_strncmp(argv[1], "burning_ship", ft_strlen(argv[1])) == 0)
-	{
-		setting.fractal_fct = burning_ship;
-		setting.zoom = 400;
-		setting.offset_y = -200;
-	}
+		set_burning_ship(&setting, 1);
 	else
 		exit_error(ERROR_ARG, 1);
 	return (setting);
