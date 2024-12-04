@@ -7,19 +7,20 @@ SRCS_UTILS = 	$(SRCS_UTILS_PATH)/color.c \
 				$(SRCS_UTILS_PATH)/complex.c \
 				$(SRCS_UTILS_PATH)/image.c \
 				$(SRCS_UTILS_PATH)/ft_atod.c \
-				$(SRCS_UTILS_PATH)/exit_fractal.c
+				$(SRCS_UTILS_PATH)/exit_fractal.c \
+				$(SRCS_UTILS_PATH)/modif_julia_set.c \
 
-SRCS_EVENT = 	$(SRCS_EVENT_PATH)/key_event.c
+SRCS_EVENT = 	$(SRCS_EVENT_PATH)/key_event.c \
+				$(SRCS_EVENT_PATH)/mouse_event.c
 
 SRCS_FRACTAL = 	$(SRCS_FRACTAL_PATH)/mandelbrot.c \
 				$(SRCS_FRACTAL_PATH)/julia.c \
 				$(SRCS_FRACTAL_PATH)/burning_ship.c \
 
 SRCS_FRACTOL = 	$(SRCS_PATH)/fractol.c \
-				$(SRCS_PATH)/event.c \
-				$(SRCS_PATH)/mlx.c \
 				$(SRCS_PATH)/update.c \
-				$(SRCS_PATH)/parsing.c
+				$(SRCS_PATH)/parsing.c \
+				$(SRCS_PATH)/init.c
 
 SRCS_FILE =		$(SRCS_FRACTOL) \
 				$(SRCS_FRACTAL) \

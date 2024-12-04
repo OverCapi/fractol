@@ -6,19 +6,11 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:15:57 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 09:44:31 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/04 10:35:45 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void	init_setting(t_setting *setting)
-{
-	ft_bzero(setting, sizeof(t_setting));
-	setting->accuracy = 100;
-	setting->zoom = 500;
-	setting->zoom_factor = 1.5;
-}
 
 t_setting	parse_arg(int argc, char **argv)
 {

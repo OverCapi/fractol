@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 14:01:46 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/03 14:37:34 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/04 10:48:01 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	render(t_vars *vars, double area[4])
 	double		y;
 	t_complex	c;
 
+	ft_printf("[LOG] rendering...\n");
 	y = area[2];
 	while (y < area[3])
 	{
@@ -90,4 +91,5 @@ void	render(t_vars *vars, double area[4])
 		}
 		y++;
 	}
+	ft_printf("[LOG] render completed\n");
 }

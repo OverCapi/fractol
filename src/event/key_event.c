@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:57:33 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 09:54:08 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/04 10:43:08 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,19 @@ static int	fractal_key(int keycode, t_setting *setting)
 	{
 		if (setting->fractal_fct == mandelbrot)
 			return (0);
-		set_mandelbrot(setting, 0);
+		set_mandelbrot(setting, 1);
 	}
 	else if (keycode == TWO_KEY || keycode == TWO_KEY_NUMPAD)
 	{
 		if (setting->fractal_fct == julia)
 			return (0);
-		set_julia(setting, 0);
+		set_julia(setting, 1);
 	}
 	else if (keycode == THREE_KEY || keycode == THREE_KEY_NUMPAD)
 	{
 		if (setting->fractal_fct == burning_ship)
 			return (0);
-		return (set_burning_ship(setting, 0), 1);
+		set_burning_ship(setting, 1);
 	}
 	else if (setting->fractal_fct == julia && update_julia_set(setting))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 09:58:13 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/04 10:41:37 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,39 +95,45 @@ typedef struct s_vars
 	t_setting	setting;
 }	t_vars;
 
+/* UTILS */
+int			blend_color(int weight[3], double ratio);
+double		ft_atod(char *str);
+int			exit_fractal(t_vars *vars);
+int			modif_julia_set(int keycode, int mode, t_setting *setting);
+
 /* COMPLEX */
 t_complex	get_cartesian_coord(t_complex c, double zoom);
 t_complex	square_complex(t_complex z);
 t_complex	add_complex(t_complex z1, t_complex z2);
 
-int			blend_color(int weight[3], double ratio);
-
+/* IMAGE */
+void		put_pixel(t_img *img, int x, int y, int color);
 t_img		copy_image_offset(t_vars *vars, double offset[2]);
 void		create_image(t_vars *vars);
 
-double		ft_atod(char *str);
-int			exit_fractal(t_vars *vars);
-
-void		set_mandelbrot(t_setting *setting, int init);
-void		set_julia(t_setting *setting, int init);
-void		set_burning_ship(t_setting *setting, int init);
+/* FRACTAL */
 int			mandelbrot(t_complex c, t_vars *vars);
 int			julia(t_complex c, t_vars *vars);
 int			burning_ship(t_complex c, t_vars *vars);
 
+/* INIT */
+void		init(t_vars *vars);
 void		init_setting(t_setting *setting);
+void		set_mandelbrot(t_setting *setting, int init);
+void		set_julia(t_setting *setting, int init);
+void		set_burning_ship(t_setting *setting, int init);
+
+/* PARSING */
 t_setting	parse_arg(int argc, char **argv);
 
-void		put_pixel(t_img *img, int x, int y, int color);
-void		init(t_vars *vars);
-
+/* UPDATE */
 void		update_key_history(int keycode, t_vars *vars);
 int			update_julia_set(t_setting *setting);
 void		update_screen_movement(t_vars *vars);
 void		update_screen(t_vars *vars);
 void		render(t_vars *vars, double area[4]);
 
-int			modif_julia_set(int keycode, int mode, t_setting *setting);
+/* EVENT */
 int			key_hook(int keycode, t_vars *vars);
 int			mouse_hook(int button, int x, int y, t_vars *vars);
 
