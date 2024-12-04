@@ -56,7 +56,7 @@ $(MLX_LIB):
 	make -C mlx_linux all
 
 $(NAME): $(LIBFT) $(FT_PRINTF) $(MLX_LIB) $(OBJECT_FILE)
-		$(CC) $(CFLAGS) $(MLX_FLAG) -o $(NAME) $(OBJECT_FILE) $(LIBFT) $(MLX_LIB)
+	$(CC) $(CFLAGS) $(MLX_FLAG) -o $(NAME) $(OBJECT_FILE) $(LIBFT) $(MLX_LIB)
 
 clean:
 	rm -f $(OBJECT_FILE) $(LIBFT) $(FT_PRINTF)
