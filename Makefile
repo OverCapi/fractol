@@ -31,7 +31,7 @@ OBJECT_FILE = 	$(SRCS_FILE:.c=.o)
 
 CC = cc
 
-DEBUG = 	-g3 #-fsanitize=address
+DEBUG = 	#-g3 -fsanitize=address
 
 CFLAGS = 	-Wall -Wextra -Werror $(DEBUG)
 
