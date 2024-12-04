@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 10:41:37 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/04 18:00:33 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_setting
 	double		zoom;
 	double		zoom_factor;
 	int			key_pressed[3];
+	int			color[5];
 }	t_setting;
 
 typedef struct s_img
@@ -97,6 +98,7 @@ typedef struct s_vars
 
 /* UTILS */
 int			blend_color(int weight[3], double ratio);
+int			smooth_color(t_setting setting, double n, double z_mod);
 double		ft_atod(char *str);
 int			exit_fractal(t_vars *vars);
 int			modif_julia_set(int keycode, int mode, t_setting *setting);

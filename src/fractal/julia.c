@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:34:07 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/03 13:16:04 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/04 18:01:03 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int	julia(t_complex coord, t_vars *vars)
 			break ;
 		n++;
 	}
-	return (blend_color((int [3]){9, 15, 8}, n / vars->setting.accuracy));
+	return (smooth_color(vars->setting, n, sqrt(zn.re * zn.re + zn.im * zn.im)));
+	//return (blend_color((int [3]){9, 15, 8}, n / vars->setting.accuracy));
 }
