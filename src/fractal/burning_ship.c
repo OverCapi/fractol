@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 15:46:41 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 18:01:10 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:04:13 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,5 @@ int	burning_ship(t_complex c, t_vars *vars)
 			break ;
 		n++;
 	}
-	return (smooth_color(vars->setting, n, sqrt(zn.re * zn.re + zn.im * zn.im)));
-	// return (blend_color((int [3]){255, 10, 0}, n / vars->setting.accuracy));
+	return (blend_color((int [3]){255, 10, 0}, n / vars->setting.accuracy));
 }

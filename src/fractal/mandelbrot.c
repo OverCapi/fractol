@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:18:07 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 18:00:54 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:03:51 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ int	mandelbrot(t_complex c, t_vars *vars)
 			break ;
 		n++;
 	}
-	return (smooth_color(vars->setting, n, sqrt(zn.re * zn.re + zn.im * zn.im)));
-	// return (blend_color((int [3]){9, 15, 8}, n / vars->setting.accuracy));
+	return (blend_color((int [3]){9, 15, 8}, n / vars->setting.accuracy));
 }

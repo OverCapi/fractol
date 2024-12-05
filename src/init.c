@@ -6,11 +6,19 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:34:23 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 17:59:54 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/05 16:12:54 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	init_setting(t_setting *setting)
+{
+	ft_bzero(setting, sizeof(t_setting));
+	setting->accuracy = 50;
+	setting->zoom = 500;
+	setting->zoom_factor = 1.5;
+}
 
 void	set_mandelbrot(t_setting *setting, int init)
 {
@@ -24,7 +32,7 @@ void	set_julia(t_setting *setting, int init)
 	if (init)
 		init_setting(setting);
 	setting->fractal_fct = julia;
-	setting->c_julia = (t_complex){0.285, 0.01};
+	setting->c_julia = (t_complex){-0.8, 0.156};
 }
 
 void	set_burning_ship(t_setting *setting, int init)
@@ -34,19 +42,6 @@ void	set_burning_ship(t_setting *setting, int init)
 	setting->fractal_fct = burning_ship;
 	setting->zoom = 400;
 	setting->offset_y = -200;
-}
-
-void	init_setting(t_setting *setting)
-{
-	ft_bzero(setting, sizeof(t_setting));
-	setting->accuracy = 50;
-	setting->zoom = 500;
-	setting->zoom_factor = 1.5;
-	setting->color[0] = 0x000814;
-	setting->color[1] = 0x001D3D;
-	setting->color[2] = 0x003566;
-	setting->color[3] = 0xFFC300;
-	setting->color[4] = 0xFFD60A;
 }
 
 void	init(t_vars *vars)

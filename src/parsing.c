@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 17:15:57 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 10:35:45 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/05 14:35:03 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ t_setting	parse_arg(int argc, char **argv)
 	else if (ft_strncmp(argv[1], "julia", ft_strlen(argv[1])) == 0)
 	{
 		set_julia(&setting, 1);
-		if (argc > 4)
+		if (argc >= 4)
 			setting.c_julia = (t_complex){ft_atod(argv[2]), ft_atod(argv[3])};
+		else
+			ft_printf("Set not specified or invalid, default value used\n");
 	}
 	else if (ft_strncmp(argv[1], "burning_ship", ft_strlen(argv[1])) == 0)
 		set_burning_ship(&setting, 1);

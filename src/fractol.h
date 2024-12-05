@@ -6,7 +6,7 @@
 /*   By: llemmel <llemmel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 16:07:09 by llemmel           #+#    #+#             */
-/*   Updated: 2024/12/04 18:00:33 by llemmel          ###   ########.fr       */
+/*   Updated: 2024/12/05 16:12:16 by llemmel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <mlx.h>
 # include <math.h>
-//# include <stdio.h>
 
 # include "../libft/libft.h"
 
@@ -75,7 +74,6 @@ typedef struct s_setting
 	double		zoom;
 	double		zoom_factor;
 	int			key_pressed[3];
-	int			color[5];
 }	t_setting;
 
 typedef struct s_img
