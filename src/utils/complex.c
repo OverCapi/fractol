@@ -12,34 +12,18 @@
 
 #include "../fractol.h"
 
-t_complex	get_cartesian_coord(t_complex c, double zoom)
+inline double	get_real(double _Complex z)
 {
-	t_complex	result;
-
-	result.re = ((c.re - (WIN_WIDTH / 2)) / zoom);
-	if (c.im < WIN_HEIGHT / 2)
-		result.im = ((-c.im + (WIN_HEIGHT / 2)) / zoom);
-	else
-		result.im = -((c.im - (WIN_HEIGHT / 2)) / zoom);
-	return (result);
+	return (*(double *)&z);
 }
 
-// z   = a + bi
-// z^2 = a^2 - b^2 + 2abi
-t_complex	square_complex(t_complex z)
+inline	double	get_im(double _Complex z)
 {
-	t_complex	z_2;
-
-	z_2.re = (z.re * z.re) - (z.im * z.im);
-	z_2.im = 2 * z.re * z.im;
-	return (z_2);
+	return (*((double *)&z + 1));
 }
 
-t_complex	add_complex(t_complex z1, t_complex z2)
+inline double _Complex	get_cartesian_coord(double _Complex c, double zoom)
 {
-	t_complex	result;
-
-	result.re = z1.re + z2.re;
-	result.im = z1.im + z2.im;
-	return (result);
+	return (((get_real(c) - WIN_WIDTH / 2) / zoom) + \
+			((get_im(c) - WIN_HEIGHT / 2) / zoom) * I);
 }

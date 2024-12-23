@@ -32,7 +32,7 @@ void	set_julia(t_setting *setting, int init)
 	if (init)
 		init_setting(setting);
 	setting->fractal_fct = julia;
-	setting->c_julia = (t_complex){-0.8, 0.156};
+	setting->c_julia = -0.8 + 0.156 * I;
 }
 
 void	set_burning_ship(t_setting *setting, int init)

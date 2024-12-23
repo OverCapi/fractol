@@ -70,13 +70,19 @@ void	update_screen(t_vars *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 }
 
+#include <time.h>
+#include <stdio.h>
 // area : [x_min, x_max, y_min, y_max]
 void	render(t_vars *vars, double area[4])
 {
+	clock_t		start, end;
+	double		cpu_time_used;
 	double		x;
 	double		y;
-	t_complex	c;
+	//t_complex	c;
+	double _Complex	c;
 
+	start = clock();
 	ft_printf("[LOG] rendering...\n");
 	y = area[2];
 	while (y < area[3])
@@ -84,12 +90,16 @@ void	render(t_vars *vars, double area[4])
 		x = area[0];
 		while (x < area[1])
 		{
-			c.re = x + vars->setting.offset_x;
-			c.im = y + vars->setting.offset_y;
+			c = (x + vars->setting.offset_x) + (y + vars->setting.offset_y) * I;
+			// c.re = x + vars->setting.offset_x;
+			// c.im = y + vars->setting.offset_y;
 			put_pixel(&vars->img, x, y, vars->setting.fractal_fct(c, vars));
 			x++;
 		}
 		y++;
 	}
-	ft_printf("[LOG] render completed\n");
+	end = clock();
+	cpu_time_used = (double)(end - start) / CLOCKS_PER_SEC;
+	printf("[LOG] rendering completed, rendrering time : %.3fs\n", cpu_time_used);
+	//ft_printf("[LOG] render completed\n");
 }

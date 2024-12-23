@@ -14,7 +14,7 @@
 
 static int	reset_fractal(t_setting *setting)
 {
-	t_complex	c_julia_tmp;
+	double _Complex	c_julia_tmp;
 
 	if (setting->fractal_fct == mandelbrot)
 		set_mandelbrot(setting, 1);

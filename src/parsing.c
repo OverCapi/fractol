@@ -23,7 +23,7 @@ t_setting	parse_arg(int argc, char **argv)
 	{
 		set_julia(&setting, 1);
 		if (argc >= 4)
-			setting.c_julia = (t_complex){ft_atod(argv[2]), ft_atod(argv[3])};
+			setting.c_julia = ft_atod(argv[2]) + ft_atod(argv[3]) * I;
 		else
 			ft_printf("Set not specified or invalid, default value used\n");
 	}

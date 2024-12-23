@@ -17,9 +17,9 @@ int	modif_julia_set(int keycode, int mode, t_setting *setting)
 	if (mode == 0)
 	{
 		if (keycode == PLUS_KEY)
-			setting->c_julia.re += JULIA_STEP;
+			setting->c_julia += JULIA_STEP;
 		else if (keycode == MINUS_KEY)
-			setting->c_julia.re -= JULIA_STEP;
+			setting->c_julia -= JULIA_STEP;
 		else
 			return (0);
 		ft_printf("[LOG] julia set updated\n");
@@ -28,9 +28,9 @@ int	modif_julia_set(int keycode, int mode, t_setting *setting)
 	else if (mode == 1)
 	{
 		if (keycode == PLUS_KEY)
-			setting->c_julia.im += JULIA_STEP;
+			setting->c_julia += JULIA_STEP*I;
 		else if (keycode == MINUS_KEY)
-			setting->c_julia.im -= JULIA_STEP;
+			setting->c_julia -= JULIA_STEP*I;
 		else
 			return (0);
 		ft_printf("[LOG] julia set updated\n");

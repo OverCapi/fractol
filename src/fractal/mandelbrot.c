@@ -12,18 +12,22 @@
 
 #include "../fractol.h"
 
-int	mandelbrot(t_complex c, t_vars *vars)
+int	mandelbrot(double _Complex c, t_vars *vars)
 {
-	double		n;
-	t_complex	zn;
+	double			n;
+	double _Complex zn;
+	double			real;
+	double			im;
 
 	n = 0;
+	zn = 0 + 0*I;
 	c = get_cartesian_coord(c, vars->setting.zoom);
-	zn = (t_complex){0, 0};
 	while (n < vars->setting.accuracy)
 	{
-		zn = add_complex(square_complex(zn), c);
-		if (zn.re * zn.re + zn.im * zn.im > 4)
+		zn = zn * zn + c;
+		real = get_real(zn);
+		im = get_im(zn);
+		if (real * real + im * im > 4)
 			break ;
 		n++;
 	}

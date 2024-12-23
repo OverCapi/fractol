@@ -12,17 +12,21 @@
 
 #include "../fractol.h"
 
-int	julia(t_complex coord, t_vars *vars)
+int	julia(double _Complex coord, t_vars *vars)
 {
-	double		n;
-	t_complex	zn;
+	double			n;
+	double _Complex	zn;
+	double			real;
+	double			im;
 
 	n = 0;
 	zn = get_cartesian_coord(coord, vars->setting.zoom);
 	while (n < vars->setting.accuracy)
 	{
-		zn = add_complex(square_complex(zn), vars->setting.c_julia);
-		if (zn.re * zn.re + zn.im * zn.im > 4)
+		zn = zn * zn + vars->setting.c_julia;
+		real = get_real(zn);
+		im = get_im(zn);
+		if (real * real + im * im > 4)
 			break ;
 		n++;
 	}
